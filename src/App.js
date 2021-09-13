@@ -4,7 +4,7 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 import Navbar from './components/Navbar/Navbar';
 import CountriesList from './components/CountriesList/CountriesList';
 import CountryDetails from './components/CountryDetails/CountryDetails';
-import countries from './countries.json';
+import { getCountries } from "./services/CountriesService";
 import './App.css';
 
 class App extends Component {
@@ -14,9 +14,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ countries: countries, loading: false })
-    }, 3000);
+    getCountries()
+      .then((countries) => {
+        this.setState({ countries: countries, loading: false })
+      })
   }
 
   render() {
@@ -39,7 +40,7 @@ class App extends Component {
                     <div className="col-7">
                       <Switch>
                         <Route
-                          exact path="/countries/:cca3"
+                          exact path="/countries/:alpha3Code"
                           render={(routeProps) => (
                             <CountryDetails {...routeProps} countries={this.state.countries} />
                           )}

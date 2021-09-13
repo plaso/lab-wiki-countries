@@ -1,21 +1,21 @@
 import { Link } from 'react-router-dom';
 
 export default function CountryDetails({
-  match: { params: { cca3 } },
+  match: { params: { alpha3Code } },
   countries
 }) {
-  const country = countries.find(currCountry => currCountry.cca3 === cca3)
+  const country = countries.find(currCountry => currCountry.alpha3Code === alpha3Code)
 
   if (!country) {
-    return <p>Invalid country CCA3</p>
+    return <p>Invalid country alpha3Code</p>
   }
 
   const countriesBorder = country.borders
-    .map(countryBorder => countries.find(c => c.cca3 === countryBorder))
+    .map(countryBorder => countries.find(c => c.alpha3Code === countryBorder))
 
   return (
     <div className="CountryDetails">
-      <h1>{country.name.common}</h1>
+      <h1>{country.name}</h1>
 
       <table className="table">
         <thead></thead>
@@ -25,7 +25,7 @@ export default function CountryDetails({
               Capital
             </td>
             <td>
-              {country.capital[0]}
+              {country.capital}
             </td>
           </tr>
 
@@ -46,9 +46,9 @@ export default function CountryDetails({
               <td>
                 <ul>
                   {countriesBorder.map(countryBorder => (
-                    <li key={countryBorder.cca3}>
-                      <Link to={`/countries/${countryBorder.cca3}`}>
-                        {countryBorder.name.common}
+                    <li key={countryBorder.alpha3Code}>
+                      <Link to={`/countries/${countryBorder.alpha3Code}`}>
+                        {countryBorder.name}
                       </Link>
                     </li>
                   ))}

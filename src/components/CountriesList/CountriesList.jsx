@@ -6,12 +6,13 @@ export default function CountriesList({ countries }) {
   return (
     <ul className="CountriesList list-group">
       {countries.map(country => (
-        <li key={country.cca3} className="list-group-item">
+        <li key={country.alpha3Code} className="list-group-item">
           <Link
-            to={`/countries/${country.cca3}`}
+            to={`/countries/${country.alpha3Code}`}
             className="text-decoration-none list-group-item-action"
           >
-            {country.flag} {country.name.common}
+            <img src={country.flag} height={16} alt={country.name} />
+            {" "}{country.name}
           </Link>
         </li>
       ))}
